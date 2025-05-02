@@ -9,10 +9,10 @@ class IsSplit:
 
     def Decision(self):
 
-        if isinstance(self.card, str) or self.card == 11:
+        if isinstance(self.card, str):
             print("Stand")
             return None
-        if self.card == 8 or self.card != 11:
+        if self.card == 8 or self.card == 11:
             print("Split is extremely recommended")
             return None
 
