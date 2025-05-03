@@ -1,6 +1,8 @@
 from Decisions.hard import Hard
 from Decisions.Soft import Soft
 from Decisions.split import IsSplit
+from Decisions.Surrender import IsSurrender
+from Decisions.Chance import BlackjackSimulator
 import os
 import ast
 
@@ -53,11 +55,22 @@ class Game:
         soft2 = Soft(totalhand, card2, dealer)
         hard = Hard(totalhand, dealer)
         split = IsSplit(card1, dealer)
+        surrender = IsSurrender(totalhand, dealer)
+        chance = BlackjackSimulator()
+
+        chanceofwinning = chance.chance_to_win(totalhand, dealer)
+        chanceoflosing = chance.chance_of_losing_if_hit(totalhand)
 
         print("first card: ", card1)
         print("second card: ", card2, "\n\n")
 
         print("Total: ", totalhand, "\n\n")
+
+        print("chance of winning: ", chanceofwinning)
+        print("chance of losing If hit: ", chanceoflosing, "\n\n")
+
+        print("surrender? ", end="")
+        surrender.SurOrNah()
 
         if isplayer1soft and card1 != card2:
             print("Soft: ", card2 + 1, "/" , card2 + card1)
@@ -89,6 +102,9 @@ class Game:
                 print("Hard: ", totalhand)
                 hard = Hard(totalhand, dealer)
                 hard.StandoHit()
+                chanceoflosing = chance.chance_of_losing_if_hit(totalhand)
+                print("chance of winning: ", chanceofwinning)
+                print("chance of losing If hit: ", chanceoflosing, "\n\n")
                 if (totalhand) > 21:
                     os.system("clear")
                     print("Busttt\n\n\n")
@@ -105,13 +121,6 @@ class Game:
             else:
                 os.system("clear")
                 ishit = False
-
-
-
-
-
-
-
 
 
 
